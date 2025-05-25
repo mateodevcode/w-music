@@ -25,7 +25,7 @@ const Reproductor = ({ setIsOpenReproductor, cancion }) => {
       if (!cancion?.videoId) return;
       try {
         const res = await fetch(
-          `http://localhost:8000/stream/${cancion.videoId}`
+          `${import.meta.env.VITE_API_URL}/stream/${cancion.videoId}`
         );
         const data = await res.json();
         if (data.audio_url) {
