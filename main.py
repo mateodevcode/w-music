@@ -74,6 +74,7 @@ from fastapi.staticfiles import StaticFiles
 from ytmusicapi import YTMusic
 import yt_dlp
 import os
+import uvicorn
 
 app = FastAPI()
 ytmusic = YTMusic()
@@ -137,7 +138,8 @@ def serve_index():
 
 
 if __name__ == "__main__":
-    import uvicorn
-
-    port = int(os.environ.get("PORT", 8000))
-    uvicorn.run("main:app", host="0.0.0.0", port=port)
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8000)),  # Render define PORT automáticamente
+    )
