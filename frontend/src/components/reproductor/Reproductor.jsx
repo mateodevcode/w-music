@@ -24,8 +24,11 @@ const Reproductor = ({ setIsOpenReproductor, cancion }) => {
     const fetchAudioUrl = async () => {
       if (!cancion?.videoId) return;
       try {
+        // const res = await fetch(
+        //   `${import.meta.env.VITE_API_URL}/stream/${cancion.videoId}`
+        // );
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/stream/${cancion.videoId}`
+          `https://w-music.onrender.com/stream/${cancion.videoId}`
         );
         const data = await res.json();
         if (data.audio_url) {
