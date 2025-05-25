@@ -1,0 +1,71 @@
+# ===============================
+# Python
+# ===============================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+*.egg
+.env
+.env.*
+
+# Entornos virtuales
+env/
+venv/
+
+# ===============================
+# Node (frontend)
+# ===============================
+frontend/node_modules/
+frontend/.vite/
+
+# ===============================
+# Vite y npm/yarn logs
+# ===============================
+frontend/.eslintcache
+frontend/.parcel-cache
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===============================
+# Sistema operativo
+# ===============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===============================
+# IDEs y editores
+# ===============================
+.vscode/
+.idea/
+*.code-workspace
+
+# ===============================
+# Tests / Cache
+# ===============================
+.mypy_cache/
+.pytest_cache/
+coverage/
+coverage.*
+
+
+# ===============================
+# Compilado del frontend
+# ===============================
+# 🚫 ¡NO lo ignores! Vas a subirlo
+# Así que NO pongas: frontend/dist/
+# ===============================
+
+.venv/
+venv/
+env/
+lib/
+__pycache__/
+scripts/
+__pycache__/
+share/

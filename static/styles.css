@@ -1,0 +1,68 @@
+body {
+  background-color: #111;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  margin: 0;
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.search-bar button {
+  padding: 10px;
+  background-color: crimson;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.results .card {
+  display: flex;
+  gap: 15px;
+  background-color: #222;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.results .card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+}
+
+.player {
+  margin-top: 30px;
+}
+
+.player.hidden {
+  display: none;
+}
+
+.player img {
+  width: 150px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
