@@ -1,9 +1,13 @@
+"use client";
 import { SlMenu } from "react-icons/sl";
 import { BsSearch } from "react-icons/bs";
 import { GoShareAndroid } from "react-icons/go";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
+import { useReproductor } from "../../context/ReproductorContext";
 
-const Navbar = ({ setIsOpenBuscar, isOpenBuscar }) => {
+const Navbar = () => {
+  const { setIsOpenBuscar, isOpenBuscar } = useReproductor();
+
   return (
     <div className="w-full h-16 text-white flex items-center justify-between">
       <div className="flex items-center gap-8">

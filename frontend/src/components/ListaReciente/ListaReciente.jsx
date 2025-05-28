@@ -1,78 +1,45 @@
-import React, { useState } from "react";
-import { FaPlay, FaPause, FaArrowLeft, FaArrowRight } from "react-icons/fa";
+"use client";
+
+import { useState } from "react";
+import { FaPlay, FaPause } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { useReproductor } from "../../context/ReproductorContext";
 
-const ListaReciente = ({ setIsOpenReproductor, isOpenReproductor }) => {
-  const [reproduciendo, setReproduciendo] = useState(false);
+const ListaReciente = () => {
+  const {
+    setIsOpenReproductor,
+    ListaRecomendada,
+    setCancion,
+    isPlaying,
+    handlePlayPause,
+    cancion,
+    setListaRecomendada,
+  } = useReproductor();
+
+  const listaOrdenada = [...ListaRecomendada].sort(
+    (a, b) => b.contador - a.contador
+  );
+
+  const itemsPerPage = 10; // 👈 Cambia este valor según lo que quieras
   const [slideIndex, setSlideIndex] = useState(0);
-  const itemsPerPage = 5;
-  const lista_reciente = [
-    {
-      nombre: "Marianita",
-      tipo: "Canción",
-      imagen: "https://i.postimg.cc/NLvwrzLh/john-wick-1.jpg",
-      videoId: "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
-      cantantes: ["Hector Zuleta", "Adanies Diaz"],
-    },
-    {
-      nombre: "Marianita",
-      tipo: "Canción",
-      imagen: "https://i.postimg.cc/NLvwrzLh/john-wick-1.jpg",
-      videoId: "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
-      cantantes: ["Hector Zuleta", "Adanies Diaz"],
-    },
-    {
-      nombre: "Marianita",
-      tipo: "Canción",
-      imagen: "https://i.postimg.cc/NLvwrzLh/john-wick-1.jpg",
-      videoId: "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
-      cantantes: ["Hector Zuleta", "Adanies Diaz"],
-    },
-    {
-      nombre: "Marianita",
-      tipo: "Canción",
-      imagen: "https://i.postimg.cc/NLvwrzLh/john-wick-1.jpg",
-      videoId: "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
-      cantantes: ["Hector Zuleta", "Adanies Diaz"],
-    },
-    {
-      nombre: "Marianita",
-      tipo: "Canción",
-      imagen: "https://i.postimg.cc/NLvwrzLh/john-wick-1.jpg",
-      videoId: "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
-      cantantes: ["Hector Zuleta", "Adanies Diaz"],
-    },
-    {
-      nombre: "Marianita",
-      tipo: "Canción",
-      imagen: "https://i.postimg.cc/NLvwrzLh/john-wick-1.jpg",
-      videoId: "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
-      cantantes: ["Hector Zuleta", "Adanies Diaz"],
-    },
-    {
-      nombre: "Marianita",
-      tipo: "Canción",
-      imagen: "https://i.postimg.cc/NLvwrzLh/john-wick-1.jpg",
-      videoId: "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
-      cantantes: ["Hector Zuleta", "Adanies Diaz"],
-    },
-  ];
+
+  const isBeginning = slideIndex === 0;
+  const isEnd = (slideIndex + 1) * itemsPerPage >= listaOrdenada.length;
 
   const handleNext = () => {
-    if ((slideIndex + 1) * itemsPerPage < lista_reciente.length) {
-      setSlideIndex((prev) => prev + 1);
+    if (!isEnd) {
+      setSlideIndex((prev) => prev + 2);
     }
   };
 
   const handlePrev = () => {
-    if (slideIndex > 0) {
-      setSlideIndex((prev) => prev - 1);
+    if (!isBeginning) {
+      setSlideIndex((prev) => prev - 2);
     }
   };
-
   const startIndex = slideIndex * itemsPerPage;
-  const currentItems = lista_reciente.slice(
+  const currentItems = listaOrdenada.slice(
     startIndex,
     startIndex + itemsPerPage
   );
@@ -108,18 +75,22 @@ const ListaReciente = ({ setIsOpenReproductor, isOpenReproductor }) => {
           <div className="flex flex-row items-center justify-between gap-4">
             <span className="">
               <MdKeyboardArrowLeft
-                className="text-zinc-300 text-4xl font-semibold border-[1px] border-zinc-500 rounded-full p-1 opacity-50 hover:bg-white/10 hover:text-white transition-colors duration-200 cursor-pointer"
+                className={`text-zinc-300 text-4xl font-semibold border-[1px] border-zinc-500 rounded-full p-1 transition-colors duration-200 cursor-pointer ${
+                  isBeginning
+                    ? "opacity-30 cursor-not-allowed"
+                    : "hover:bg-white/10 hover:text-white"
+                }`}
                 onClick={handlePrev}
-                disabled={slideIndex === 0}
               />
             </span>
             <span>
               <MdKeyboardArrowRight
-                className="text-zinc-300 text-4xl font-semibold border-[1px] border-zinc-500 rounded-full p-1 hover:bg-white/10 hover:text-white transition-colors duration-200 cursor-pointer"
+                className={`text-zinc-300 text-4xl font-semibold border-[1px] border-zinc-500 rounded-full p-1 transition-colors duration-200 cursor-pointer ${
+                  isEnd
+                    ? "opacity-30 cursor-not-allowed"
+                    : "hover:bg-white/10 hover:text-white"
+                }`}
                 onClick={handleNext}
-                disabled={
-                  (slideIndex + 1) * itemsPerPage >= lista_reciente.length
-                }
               />
             </span>
           </div>
@@ -137,32 +108,50 @@ const ListaReciente = ({ setIsOpenReproductor, isOpenReproductor }) => {
               exit="exit"
               transition={{ duration: 0.3 }}
               key={index}
-              onClick={() => {
-                setIsOpenReproductor(!isOpenReproductor);
+              onClick={(e) => {
+                e.stopPropagation();
+                setCancion(item); // Cambia la canción actual
+                setIsOpenReproductor(true); // Abre el reproductor
+                setListaRecomendada((prev) =>
+                  prev.map((s) =>
+                    s?.videoId === item.videoId
+                      ? { ...s, contador: s.contador + 1 }
+                      : s
+                  )
+                );
               }}
               className="flex flex-col items-start justify-center text-white rounded-lg cursor-pointer relative w-auto flex-shrink-0"
             >
               <img
-                src={item.imagen}
-                alt={item.nombre}
+                src={
+                  item.thumbnail ||
+                  "https://i.postimg.cc/NLvwrzLh/john-wick-1.jpg"
+                }
+                alt={item.title}
                 className="w-40 h-40 rounded-md cursor-pointer select-none"
               />
-              <span className="font-semibold mt-2">{item.nombre} </span>
-              <span className="w-40 text-sm text-gray-300">
-                {item.tipo} - {item.cantantes[0]} y {item.cantantes[1]}
+              <span className="font-semibold mt-2">{item.title} </span>
+              <span className="w-40 text-sm text-gray-300 pb-4">
+                Canción - {item.artist}
               </span>
-
-              {reproduciendo ? (
-                <FaPause
-                  className="absolute top-16 left-[40%] text-white text-4xl"
-                  onClick={() => setReproduciendo(false)}
-                />
-              ) : (
-                <FaPlay
-                  className="absolute top-16 left-[40%] text-white text-4xl"
-                  onClick={() => setReproduciendo(true)}
-                />
-              )}
+              <div
+                onClick={(e) => {
+                  setCancion(item);
+                  e.stopPropagation();
+                  // setIsOpenReproductor(false);
+                  handlePlayPause();
+                }}
+              >
+                {cancion && cancion.videoId === item.videoId ? (
+                  isPlaying ? (
+                    <FaPause className="absolute top-16 left-[40%] text-white text-4xl" />
+                  ) : (
+                    <FaPlay className="absolute top-16 left-[40%] text-white text-4xl" />
+                  )
+                ) : (
+                  <FaPlay className="absolute top-16 left-[40%] text-white text-4xl" />
+                )}
+              </div>
             </motion.div>
           ))}
         </div>

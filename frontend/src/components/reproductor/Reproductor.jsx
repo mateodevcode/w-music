@@ -1,134 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { HiArrowPathRoundedSquare } from "react-icons/hi2";
 import { IoMdPause, IoMdPlay } from "react-icons/io";
 import { IoPlaySkipBackSharp, IoPlaySkipForwardSharp } from "react-icons/io5";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { SlOptionsVertical } from "react-icons/sl";
 import { TiArrowShuffle } from "react-icons/ti";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import ImagenDynamic from "./ImagenDynamic";
+import { useReproductor } from "../../context/ReproductorContext";
+import { formatTime } from "../../utils/formatTime";
 
-const Reproductor = ({ setIsOpenReproductor, cancion }) => {
-  const audioRef = useRef(null);
-  const progressBarRef = useRef(null);
+const Reproductor = ({ cancion }) => {
+  const {
+    setIsOpenReproductor,
+    isPlaying,
+    handlePlayPause,
+    audioRef,
+    duration,
+    progress,
+  } = useReproductor();
 
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
   const [background, setBackground] = useState("");
-
-  const [audioSrc, setAudioSrc] = useState("");
-
-  useEffect(() => {
-    const fetchAudioUrl = async () => {
-      if (!cancion?.videoId) return;
-      try {
-        // const res = await fetch(
-        //   `${import.meta.env.VITE_API_URL}/stream/${cancion.videoId}`
-        // );
-        const res = await fetch(
-          `https://w-music.onrender.com/stream/${cancion.videoId}`
-        );
-        const data = await res.json();
-        if (data.audio_url) {
-          setAudioSrc(data.audio_url);
-        }
-      } catch (error) {
-        console.error("Error fetching audio stream:", error);
-      }
-    };
-    fetchAudioUrl();
-  }, [cancion?.videoId]);
-
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60) || 0;
-    const seconds = Math.floor(time % 60) || 0;
-    return `${minutes < 10 ? "0" : ""}${minutes}:${
-      seconds < 10 ? "0" : ""
-    }${seconds}`;
-  };
-
-  const handlePlayPause = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
-
-  const updateTimeFromPosition = (pageX) => {
-    const rect = progressBarRef.current.getBoundingClientRect();
-    const x = pageX - rect.left;
-    const percentage = Math.max(0, Math.min(1, x / rect.width));
-    const newTime = percentage * duration;
-    setCurrentTime(newTime);
-    if (audioRef.current) audioRef.current.currentTime = newTime;
-  };
-
-  // Eventos del drag
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    updateTimeFromPosition(e.pageX);
-  };
-
-  const handleMouseMove = (e) => {
-    if (isDragging) updateTimeFromPosition(e.pageX);
-  };
-
-  const handleMouseUp = () => {
-    if (isDragging) setIsDragging(false);
-  };
-
-  // Touch
-  const handleTouchStart = (e) => {
-    setIsDragging(true);
-    updateTimeFromPosition(e.touches[0].pageX);
-  };
-
-  const handleTouchMove = (e) => {
-    if (isDragging) updateTimeFromPosition(e.touches[0].pageX);
-  };
-
-  const handleTouchEnd = () => {
-    if (isDragging) setIsDragging(false);
-  };
-
-  useEffect(() => {
-    if (!isDragging) {
-      const interval = setInterval(() => {
-        if (audioRef.current) setCurrentTime(audioRef.current.currentTime);
-      }, 500);
-      return () => clearInterval(interval);
-    }
-  }, [isDragging]);
-
-  useEffect(() => {
-    const handleLoadedMetadata = () => {
-      setDuration(audioRef.current.duration);
-    };
-    audioRef.current?.addEventListener("loadedmetadata", handleLoadedMetadata);
-    return () => {
-      audioRef.current?.removeEventListener(
-        "loadedmetadata",
-        handleLoadedMetadata
-      );
-    };
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-    window.addEventListener("touchmove", handleTouchMove);
-    window.addEventListener("touchend", handleTouchEnd);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [isDragging, duration]);
 
   return (
     <motion.div
@@ -138,12 +30,6 @@ const Reproductor = ({ setIsOpenReproductor, cancion }) => {
       transition={{ duration: 0.3 }}
       exit={{ opacity: 0, scale: 0 }}
     >
-      <audio
-        ref={audioRef}
-        src={audioSrc}
-        onEnded={() => setIsPlaying(false)}
-        autoPlay
-      />
       <div className="w-full h-16 flex items-center justify-between">
         <MdKeyboardArrowDown
           className="text-zinc-100 text-3xl hover:text-zinc-400 cursor-pointer active:scale-95 transition-transform duration-75"
@@ -169,29 +55,28 @@ const Reproductor = ({ setIsOpenReproductor, cancion }) => {
       </div>
       {/* PROGRESS BAR */}
       <div className="w-full mt-5 relative">
-        <div
-          ref={progressBarRef}
-          className="relative w-full h-1 bg-gray-700 rounded-full cursor-pointer"
-          onClick={(e) => updateTimeFromPosition(e.pageX)}
-        >
+        <div className="progress-container">
           <div
-            className={`absolute h-1 ${background} rounded-full`}
+            className="progress-filled"
             style={{
-              width: `${(currentTime / duration) * 100 || 0}%`,
-              backgroundColor: background,
+              width: `${(progress / duration) * 100}%`,
+              backgroundColor: background || "#3b82f6",
             }}
           />
-          <div
-            className="absolute w-3 h-3 bg-blue-600 rounded-full top-1/2 -translate-y-1/2 -translate-x-1/2"
-            style={{ left: `${(currentTime / duration) * 100 || 0}%` }}
-            onMouseDown={handleMouseDown}
-            onTouchStart={handleTouchStart}
+          <input
+            type="range"
+            min="0"
+            max={duration || 0}
+            value={progress}
+            onChange={(e) => {
+              const time = parseFloat(e.target.value);
+              audioRef.current.currentTime = time;
+            }}
+            className="custom-range-input"
           />
         </div>
         <div className="flex items-center justify-between mt-4">
-          <span className="text-xs text-zinc-400">
-            {formatTime(currentTime)}
-          </span>
+          <span className="text-xs text-zinc-400">{formatTime(progress)}</span>
           <span className="text-xs text-zinc-400">{formatTime(duration)}</span>
         </div>
       </div>

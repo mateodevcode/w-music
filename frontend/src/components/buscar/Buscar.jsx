@@ -1,22 +1,26 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { GoArrowLeft } from "react-icons/go";
 import { RxCountdownTimer } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { BsSearch } from "react-icons/bs";
+import { useReproductor } from "../../context/ReproductorContext";
 
-const Buscar = ({
-  setIsOpenReproductor,
-  setIsOpenBuscar,
-  isOpenBuscar,
-  searchTerm,
-  setSearchTerm,
-  handleSearch,
-  listaBusqueda,
-  setCancion,
-  cancion,
-}) => {
+const Buscar = () => {
+  const {
+    setIsOpenReproductor,
+    setIsOpenBuscar,
+    isOpenBuscar,
+    searchTerm,
+    setSearchTerm,
+    handleSearch,
+    listaBusqueda,
+    setCancion,
+    setListaRecomendada,
+    ListaRecomendada,
+  } = useReproductor();
+
   const [Historial, setHistorial] = useState(() => {
     const historial = JSON.parse(localStorage.getItem("historial")) || [];
     return historial;
@@ -26,14 +30,33 @@ const Buscar = ({
     localStorage.setItem("historial", JSON.stringify(Historial));
   }, [Historial]);
 
-  const handleHistorialclick = (item) => {
+  const handleHistorialclick = (item, song = null) => {
     setHistorial((prev) => [...prev, item]); // Add clicked item to historial
+    if (song !== null) {
+      const existingSong = ListaRecomendada.find(
+        (s) => s.videoId === song.videoId
+      );
+      if (!existingSong) {
+        song.contador = 1; // Set contador to 1 if the song is not already in ListaRecomendada
+        setListaRecomendada((prev) => [...prev, song]); // Add song to ListaRecomendada if not already present
+      } else {
+        setListaRecomendada((prev) =>
+          prev.map((s) =>
+            s?.videoId === song.videoId ? { ...s, contador: s.contador + 1 } : s
+          )
+        ); // Increment contador if the song is already in ListaRecomendada
+      }
+    }
   };
 
   const handleDeleteHistorial = (e, index) => {
     e.stopPropagation(); // Prevent click from closing the modal
     setHistorial((prev) => prev.filter((_, i) => i !== index)); // Remove item from historial
   };
+
+  const reversedHistorial = useMemo(() => {
+    return Historial.slice().reverse();
+  }, [Historial]);
 
   return (
     <div
@@ -87,7 +110,7 @@ const Buscar = ({
                     setIsOpenReproductor(true);
                     setIsOpenBuscar(false);
                     setCancion(item);
-                    handleHistorialclick(item?.title);
+                    handleHistorialclick(item?.title, item);
                   }}
                   className="w-full h-12 flex items-center justify-between px-4 py-6 gap-4 text-zinc-400 hover:bg-zinc-800 transition-colors duration-200"
                 >
@@ -111,10 +134,10 @@ const Buscar = ({
             <>
               {Historial.length > 0 ? (
                 <>
-                  {Historial.reverse().map((item, index) => (
+                  {reversedHistorial.map((item, index) => (
                     <div
-                      key={index}
                       className="w-full h-12 flex items-center justify-between px-4 py-6 gap-4 text-zinc-400 hover:bg-zinc-800 transition-colors duration-200 cursor-pointer"
+                      key={index}
                       onClick={(e) => {
                         setSearchTerm(item);
                         handleSearch(e, item);
