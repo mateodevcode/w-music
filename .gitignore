@@ -1,0 +1,24 @@
+# Entorno virtual de Python
+venv/
+*.pyc
+__pycache__/
+
+# Dependencias de Node (Vite/React)
+frontend/node_modules/
+frontend/dist/
+
+# Archivos de entorno
+.env
+frontend/.env
+
+# Logs y bases de datos temporales
+*.log
+*.sqlite3
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración específicos del IDE
+.vscode/
+*.code-workspace
