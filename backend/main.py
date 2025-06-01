@@ -60,7 +60,6 @@ def get_audio_url(video_id: str):
 
 
 # Servir frontend Vite (dist)
-# frontend_dist_path = os.path.join(os.path.dirname(__file__), "frontend", "dist")
 frontend_dist_path = Path(__file__).resolve().parent.parent / "frontend" / "dist"
 app.mount("/", StaticFiles(directory=frontend_dist_path, html=True), name="static")
 
