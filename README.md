@@ -1,37 +1,67 @@
 # w-music
 
 ## Deploy on Render
-Para visualizar la pagina desplegada en Render puedes dar click en el siguiente enlace. [Ir a la web](https://wonly.vercel.app)
+Para visualizar la pagina desplegada en Render puedes dar click en el siguiente enlace. [Ir a la App Web](https://w-music.onrender.com)
 
-## <li>Backend</li>
-[![My Skills](https://skillicons.dev/icons?i=nodejs,express,nextjs,python,fastapi,django,bash,powershell,java,spring,)](https://skillicons.dev)
-
-
-**🎬🍿 ¡Descubre Wonly! Tu Destino Gratis para Series y Películas 🍿🎬** ¡Hola a todos! 😄 Estoy súper emocionado de presentarles **Wonly**, una web diseñada para que disfrutes de tus series y películas favoritas totalmente gratis. 🎉 He creado esta plataforma utilizando **Next.js**, **Tailwind CSS** y **Chakra UI**, combinando tecnología moderna con una experiencia de usuario increíble. 🚀
+**🎬🍿 ¡Descubre W-Music! Tu Destino Gratis para escuchar musica 🍿🎬** ¡Hola a todos! 😄 Estoy súper emocionado de presentarles **W-Music**, una App web diseñada para que disfrutes de tu Musica favorita totalmente gratis. 🎉 He creado esta plataforma utilizando **Python + FastAPI**, **Vite  + React** y **TailwindCSS**, combinando tecnología moderna con una experiencia de usuario increíble. 🚀
 
 [![image](https://github.com/user-attachments/assets/0688ce3c-ffa9-4f8d-a869-1a7dc4006d5e)](https://w-music.onrender.com)
 
 
-## 🛠️ Tecnologías Utilizadas:
-- **Next.js:** Aproveché las capacidades de Next.js para el renderizado del lado del servidor (SSR) y la generación estática (SSG), garantizando tiempos de carga rápidos y una excelente optimización para motores de búsqueda (SEO). ⚡
-- **Tailwind CSS:** Utilicé Tailwind CSS para un diseño altamente personalizable y responsivo, asegurando que Wonly se vea genial en cualquier dispositivo, desde móviles hasta pantallas gigantes. 🎨📱💻
-- **Chakra UI:** Integré Chakra UI para construir componentes accesibles y reutilizables, proporcionando una interfaz intuitiva y atractiva para todos los usuarios. 🛠️✨
 
-## 🚀 Características Principales:
-- **Streaming de Contenido:** Disfruta de una amplia selección de series y películas en alta calidad, disponibles directamente en la web. 📺🎥
-- **Interfaz Amigable y Responsiva:** Gracias a Tailwind CSS y Chakra UI, Wonly ofrece una experiencia de navegación fluida y adaptada a cualquier dispositivo. 📱💻📺
-- **Bloqueador de Anuncios Recomendado:** Para una experiencia sin interrupciones, te recomendamos descargar un bloqueador de anuncios. Esto te permitirá disfrutar del contenido sin distracciones y mejorar el rendimiento de la web. 🚫📢🔧
-- **Búsqueda y Filtros Avanzados:** Encuentra fácilmente lo que buscas con nuestra potente función de búsqueda y filtros personalizados por género, año, popularidad, y más. 🔍📂
-- **Perfil de Usuario:** Crea tu perfil para guardar tus series y películas favoritas, recibir recomendaciones personalizadas y seguir tu progreso de visualización. 👤⭐
-- **Seguridad y Rendimiento:** Implementé las mejores prácticas de seguridad y optimización para asegurar que tu experiencia en Wonly sea rápida y segura. 🔒⚙️
+- 🔍 Buscar canciones usando la API no oficial de **YouTube Music**.
+- 🎧 Obtener el **streaming de audio** directamente desde YouTube
+- 🌐 Servir un frontend moderno hecho en **Vite/React**.
+- 🚀 Usar todo desde un solo backend gracias a FastAPI.
 
-## 🌟 Otras Características:
-- **Modo Oscuro/Claro:** Cambia entre modos oscuro y claro para adaptar la visualización a tus preferencias. 🌙☀️
-- **Soporte Multilenguaje:** Wonly está disponible en varios idiomas, facilitando el acceso a una audiencia global. 🌍🗣️
-- **Actualizaciones Constantes:** Siempre estoy agregando nuevas series y películas, además de mejorar las funcionalidades basadas en tus comentarios. 🔄✨
 
-## 🌐 ¡Visita Wonly y empieza a disfrutar de tus series y películas favoritas hoy mismo! 🎉🍿
+---
 
-👉 [https://wonly.vercel.app]
+## 🧩 Tecnologías utilizadas
 
-¡Espero que disfrutes usando Wonly tanto como yo disfruté creándola! 🎬✨
+| Tecnología     | Descripción                                       |
+|----------------|---------------------------------------------------|
+| **FastAPI**    | Backend rápido y moderno para APIs REST           |
+| **YTMusicAPI** | Búsquedas en YouTube Music                        |
+| **yt-dlp**     | Extraer el audio directo desde YouTube            |
+| **Vite + React** | Interfaz moderna y rápida                      |
+| **Uvicorn**    | Servidor ASGI para ejecutar FastAPI               |
+| **CORS**       | Permitir peticiones entre frontend y backend      |
+
+---
+
+## <li>Backend</li>
+[![My Skills](https://skillicons.dev/icons?i=python,fastapi,)](https://skillicons.dev)
+
+## <li>Frontend</li>
+[![My Skills](https://skillicons.dev/icons?i=react,vite,tailwind,)](https://skillicons.dev)
+
+
+## 📌 ¿Qué es este proyecto?
+
+`YouTube Music Audio Streamer` es una app de streaming de música que:
+
+1. Utiliza `ytmusicapi` para buscar canciones en YouTube Music.
+2. Usa `yt-dlp` para extraer el enlace directo del audio del video.
+3. Expone una API REST con FastAPI.
+4. Sirve un frontend hecho con React/Vite para buscar y escuchar canciones fácilmente.
+
+## 🎥 Demostración rápida
+[Ir a la App Web](https://w-music.onrender.com)
+
+   
+## 🚀 Instalación paso a paso
+
+### 1. Clonar el proyecto
+
+```bash
+git clone https://github.com/tu_usuario/tu_repositorio.git
+cd w-music
+
+
+
+## 🌐 ¡Visita W-music y empieza a disfrutar de tu musica favorita hoy mismo! 🎉🍿
+
+[👉](https://w-music.onrender.com)
+
+¡Espero que disfrutes usando W-music tanto como yo disfruté creándola! 🎬✨
