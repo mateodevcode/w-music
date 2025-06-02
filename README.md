@@ -1,4 +1,5 @@
 # w-music
+[![image](https://github.com/user-attachments/assets/793f611f-f228-4c99-8572-4fd4d8622f28)](https://w-music.onrender.com)
 
 ## Deploy on Render
 Para visualizar la pagina desplegada en Render puedes dar click en el siguiente enlace. [Ir a la App Web](https://w-music.onrender.com)
@@ -158,6 +159,6 @@ Desarrollado por [Mateo Lizcano Noriega](https://www.linkedin.com/in/mateo-lizca
 
 ## 🌐 ¡Visita W-music y empieza a disfrutar de tu musica favorita hoy mismo! 🎉🍿
 
-[👉](https://w-music.onrender.com)
+[👉 w-music](https://w-music.onrender.com)
 
 ¡Espero que disfrutes usando W-music tanto como yo disfruté creándola! 🎬✨
