@@ -1,7 +1,5 @@
 # w-music
 [![image](https://github.com/user-attachments/assets/6d05effe-cc91-4b59-86bf-70d8117f5046)](https://w-music.onrender.com)
-[![image](https://github.com/user-attachments/assets/5c7244ed-d6e5-4a40-ab01-cb2788e1c41d)](https://w-music.onrender.com)
-[![image](https://github.com/user-attachments/assets/1aebc1c7-d5ef-44e6-ac6b-a3ba3d863b3a)](https://w-music.onrender.com)
 
 ## Deploy on Render
 Para visualizar la pagina desplegada en Render puedes dar click en el siguiente enlace. [Ir a la App Web](https://w-music.onrender.com)
@@ -9,7 +7,6 @@ Para visualizar la pagina desplegada en Render puedes dar click en el siguiente 
 **🎬🍿 ¡Descubre W-Music! Tu Destino Gratis para escuchar musica 🍿🎬** ¡Hola a todos! 😄 Estoy súper emocionado de presentarles **W-Music**, una App web diseñada para que disfrutes de tu Musica favorita totalmente gratis. 🎉 He creado esta plataforma utilizando **Python + FastAPI**, **Vite  + React** y **TailwindCSS**, combinando tecnología moderna con una experiencia de usuario increíble. 🚀
 
 [![image](https://github.com/user-attachments/assets/0688ce3c-ffa9-4f8d-a869-1a7dc4006d5e)](https://w-music.onrender.com)
-
 
 
 - 🔍 Buscar canciones usando la API no oficial de **YouTube Music**.
