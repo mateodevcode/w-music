@@ -5,6 +5,7 @@ import { FaPlay, FaPause } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { useReproductor } from "../../context/ReproductorContext";
+import { acortarTexto } from "../../config/acortarTexto";
 
 const ListaReciente = () => {
   const {
@@ -130,15 +131,24 @@ const ListaReciente = () => {
                 alt={item.title}
                 className="w-40 h-40 rounded-md cursor-pointer select-none"
               />
-              <span className="font-semibold mt-2">{item.title} </span>
+              <div className="relative group mt-2 w-40">
+                <span className="font-semibold truncate block">
+                  {acortarTexto(item.title, 18)}
+                </span>
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max max-w-xs px-3 py-2 rounded-xl bg-[#07358a] text-[#67c312] text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-lg z-50 pointer-events-none">
+                  <strong>{item.title}</strong>
+                  <br />
+                  {item.artist}
+                  {/* <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45 mt-[-4px]"></div> */}
+                </div>
+              </div>
               <span className="w-40 text-sm text-gray-300 pb-4">
-                Canción - {item.artist}
+                {acortarTexto(item.artist, 22)}
               </span>
               <div
                 onClick={(e) => {
                   setCancion(item);
                   e.stopPropagation();
-                  // setIsOpenReproductor(false);
                   handlePlayPause();
                 }}
               >

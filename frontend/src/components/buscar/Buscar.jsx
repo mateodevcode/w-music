@@ -6,6 +6,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { motion } from "framer-motion";
 import { BsSearch } from "react-icons/bs";
 import { useReproductor } from "../../context/ReproductorContext";
+import { acortarTexto } from "../../config/acortarTexto";
 
 const Buscar = () => {
   const {
@@ -134,7 +135,7 @@ const Buscar = () => {
                     />
                     <div className="flex flex-col">
                       <span className="text-sm font-semibold text-white">
-                        {item?.title}
+                        {acortarTexto(item?.title, 35)}
                       </span>
                       <span className="text-xs">{item?.artist}</span>
                     </div>
@@ -158,7 +159,9 @@ const Buscar = () => {
                     >
                       <div className="flex items-center gap-4">
                         <RxCountdownTimer className="text-xl text-[#67c312]/50" />
-                        <span className="text-sm">{item}</span>
+                        <span className="text-sm">
+                          {acortarTexto(item, 35)}
+                        </span>
                       </div>
                       <RiDeleteBin6Line
                         className="text-xl cursor-pointer text-[#67c312]/50 hover:text-[#67c312] transition-colors duration-200"
