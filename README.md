@@ -62,7 +62,7 @@ cd w-music
 ## 2. Instalar dependencias del backend
 
 ```bash
-  pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 ⚠️ Requiere tener ffmpeg instalado para que yt-dlp funcione correctamente.
 
@@ -70,23 +70,90 @@ cd w-music
 ## 3. Construir el frontend
 
 ```bash
-  cd frontend
-   npm install
-   npm run build
+cd frontend
+npm install
+npm run build
 ```
+Esto genera la carpeta dist/ que FastAPI sirve como frontend.
 
-Install dependencies
+## 4. Ejecutar el servidor
 
 ```bash
-  npm install
+cd ..
+uvicorn backend.main:app --reload
 ```
 
-Start the server
-
+# 🌐 Endpoints disponibles
+## 🔎 Buscar canciones
+GET /search?query={nombre}
+### Ejemplo:
 ```bash
-  npm run start
+GET /search?query=Linkin Park
+```
+### Respuesta:
+```bash
+[
+  {
+    "title": "Numb",
+    "artist": "Linkin Park",
+    "thumbnail": "https://...",
+    "videoId": "abcd123",
+    "duration": "3:05",
+    "views": "98M"
+  }
+]
 ```
 
+## 🎧 Obtener URL de audio
+GET /stream/{video_id}
+### Ejemplo:
+```bash
+GET /stream/abcd123
+```
+### Respuesta:
+```bash
+{
+  "audio_url": "https://rr3---sn-....googlevideo.com/videoplayback?..."
+}
+```
+
+# 🖥️ Frontend (interfaz)
+Una vez ejecutado el servidor y compilado el frontend, visita:
+```bash
+http://localhost:8000/
+```
+
+Allí podrás:
+- Escribir el nombre de una canción
+- Ver resultados con miniaturas
+- Reproducir el audio sin abrir YouTube
+
+# 🛡️ CORS
+El backend permite peticiones desde cualquier origen para facilitar la integración con frontends externos.
+
+## 📁 Estructura del proyecto
+```bash
+📦 w-music/
+│
+├── 📁 backend/           # Python + FastAPI
+│   └── main.py/          # API con FastAPI
+├── 📁 frontend/          # Proyecto Vite + React
+│   └── dist/             # Archivos generados para producción
+│   └── env/              # Env para el front
+├── main.py               # API con FastAPI
+├── requirements.txt      # Dependencias del backend
+└── README.md             
+```
+
+# 📸 Capturas de pantalla
+[![image](https://github.com/user-attachments/assets/0688ce3c-ffa9-4f8d-a869-1a7dc4006d5e)](https://w-music.onrender.com)
+
+## 🙌 Autor
+Desarrollado por [Mateo Lizcano Noriega](https://www.linkedin.com/in/mateo-lizcano-noriega)
+¿Te fue útil este proyecto? ¡Dale una estrella ⭐ y compártelo!
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
 
 ## 🌐 ¡Visita W-music y empieza a disfrutar de tu musica favorita hoy mismo! 🎉🍿
