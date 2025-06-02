@@ -1,6 +1,6 @@
 # w-music
-[![image](https://github.com/user-attachments/assets/793f611f-f228-4c99-8572-4fd4d8622f28)](https://w-music.onrender.com)
 [![image](https://github.com/user-attachments/assets/6d05effe-cc91-4b59-86bf-70d8117f5046)](https://w-music.onrender.com)
+[![image](https://github.com/user-attachments/assets/5c7244ed-d6e5-4a40-ab01-cb2788e1c41d)](https://w-music.onrender.com)
 
 ## Deploy on Render
 Para visualizar la pagina desplegada en Render puedes dar click en el siguiente enlace. [Ir a la App Web](https://w-music.onrender.com)
