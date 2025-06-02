@@ -57,7 +57,7 @@ Para visualizar la pagina desplegada en Render puedes dar click en el siguiente 
 ```bash
 git clone https://github.com/tu_usuario/tu_repositorio.git
 cd w-music
-
+```
 
 
 ## 🌐 ¡Visita W-music y empieza a disfrutar de tu musica favorita hoy mismo! 🎉🍿
