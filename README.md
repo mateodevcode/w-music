@@ -59,6 +59,35 @@ git clone https://github.com/tu_usuario/tu_repositorio.git
 cd w-music
 ```
 
+## 2. Instalar dependencias del backend
+
+```bash
+  pip install -r requirements.txt
+```
+⚠️ Requiere tener ffmpeg instalado para que yt-dlp funcione correctamente.
+
+
+## 3. Construir el frontend
+
+```bash
+  cd frontend
+   npm install
+   npm run build
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
+
+
 
 ## 🌐 ¡Visita W-music y empieza a disfrutar de tu musica favorita hoy mismo! 🎉🍿
 
